@@ -89,3 +89,29 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+//////////////////////////////////////////
+
+int sys_cInt(void)
+{
+  int num,counter=0;
+  
+  asm("movl %%esi, %0" : "=r"(num));
+  // cprintf("here%d\n",num);
+  while(num/10 != 0)
+  {
+    num = num/10;
+    counter +=1;
+  }
+  counter += 1;
+  cprintf("numbers of digit = %d\n",counter);
+  return 0;
+}
+
+
+int sys_getParent(void)
+{
+  // int a =  getParent();  
+  // cprintf("his %d\n", a);
+  return myproc()->parent->pid;
+}

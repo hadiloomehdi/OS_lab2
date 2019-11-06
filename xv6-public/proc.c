@@ -532,3 +532,21 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+
+int getParent(void)////not use , will use in getChild
+{
+  struct proc *p;
+  acquire(&ptable.lock);
+  for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+  {
+    if (p->state == RUNNING)
+    {
+      release(&ptable.lock);
+      return p->parent ->pid;
+    }
+  }
+  release(&ptable.lock);
+  return -1;
+
+}
