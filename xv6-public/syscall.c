@@ -103,6 +103,12 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
+extern int sys_cInt(void);
+extern int sys_manualSleep(void);
+extern int sys_getParent(void);
+extern int sys_getChilds(void);
+
+
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -126,6 +132,10 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_cInt]  sys_cInt,    
+[SYS_manualSleep] sys_manualSleep, 
+[SYS_getParent] sys_getParent,
+[SYS_getChilds] sys_getChilds,
 };
 
 void
