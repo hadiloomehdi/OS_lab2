@@ -32,3 +32,4 @@ SYSCALL(uptime)
 
 SYSCALL(cInt)
 SYSCALL(getParent)
+SYSCALL(getChildren)

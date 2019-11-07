@@ -23,4 +23,4 @@
 #define SYS_cInt    22
 #define SYS_manualSleep 23
 #define SYS_getParent 24
-#define SYS_getChilds 25
+#define SYS_getChildren 25

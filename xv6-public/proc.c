@@ -550,3 +550,38 @@ int getParent(void)////not use , will use in getChild
   return -1;
 
 }
+
+int Children(int id)
+{
+  int a[10] ={-1};
+  a[0] = id;
+  int index = 1;
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(int i= 0; i < 10; i++)
+  {
+    if(a[i] == -1)
+      break;
+    for (p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    {
+      if(p->parent->pid == a[i])
+      {
+        a[index] = p->pid;
+        index++;
+      }
+    }
+  }
+  release(&ptable.lock);
+  int res = a[0];
+  int power= 10;
+  for (int i = 1; i < 10; i++)
+  {
+    if(a[i] == -1)
+      break;
+    res = res + (power*a[i]);
+    power = power * power;
+  }
+  if(res == a[0])
+    return -1;
+  return res/10;
+}

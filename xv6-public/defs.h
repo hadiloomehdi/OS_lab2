@@ -122,7 +122,8 @@ void            wakeup(void*);
 void            yield(void);
 ///////////////////////////////////
 int             getParent(void);
-
+int             Children(int);
+//////////////////////////////////////
 
 // swtch.S
 void            swtch(struct context**, struct context*);
