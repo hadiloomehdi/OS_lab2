@@ -184,6 +184,7 @@ UPROGS=\
 	_cint\
 	_getParent\
 	_getChildren\
+	_manualSleep\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -256,6 +257,7 @@ EXTRA=\
 	cint.c\
 	getChildren.c\
 	getParent.c\
+	manualSleep.c\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\

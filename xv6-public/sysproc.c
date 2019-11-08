@@ -124,3 +124,21 @@ int sys_getChildren(void)
   return Children(pid);
 
 }
+
+
+int sys_manualSleep(void)
+{
+  int delay;
+  if(argint(0, &delay) < 0)
+    return -1;  
+  int first =sys_uptime() ,now;
+  cprintf("before sleep %d\n",first);
+  while (1 )
+  {
+    now =sys_uptime();
+    if(now - first == delay*100 )
+      break; 
+  }
+  cprintf("before sleep %d\n",now);
+  return 0;
+}

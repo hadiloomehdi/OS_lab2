@@ -27,6 +27,7 @@ int uptime(void);
 int cInt(void);
 int getParent(void);
 int getChildren(int);
+void manualSleep(int);
 //////////////////////////////////////////  
 
 // ulib.c
