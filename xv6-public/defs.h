@@ -124,6 +124,7 @@ void            yield(void);
 int             getParent(void);
 int             Children(int);
 //////////////////////////////////////
+int             setExecPath(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
@@ -151,6 +152,7 @@ char*           safestrcpy(char*, const char*, int);
 int             strlen(const char*);
 int             strncmp(const char*, const char*, uint);
 char*           strncpy(char*, const char*, int);
+void            strncat(char*, char*, int, int);
 
 // syscall.c
 int             argint(int, int*);

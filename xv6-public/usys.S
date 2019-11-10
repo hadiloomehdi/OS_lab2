@@ -34,3 +34,5 @@ SYSCALL(cInt)
 SYSCALL(getParent)
 SYSCALL(getChildren)
 SYSCALL(manualSleep)
+SYSCALL(setPath)
+

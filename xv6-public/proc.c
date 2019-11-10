@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "execPath.h"
 
 struct {
   struct spinlock lock;
@@ -17,6 +18,7 @@ static struct proc *initproc;
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
+
 
 static void wakeup1(void *chan);
 
@@ -325,7 +327,6 @@ scheduler(void)
   struct proc *p;
   struct cpu *c = mycpu();
   c->proc = 0;
-  
   for(;;){
     // Enable interrupts on this processor.
     sti();
@@ -585,3 +586,21 @@ int Children(int id)
     return -1;
   return res/10;
 }
+int setExecPath (void) {
+  int i;
+  char *path;
+  if (argstr(0, &path) < 0)
+    return -1;
+  if (execPath.pathDefinedNumbers == MAX_BIN_PATHS) {
+    cprintf ("path has maximum number paths, adding new path is faild\n");
+    return -1;
+  }
+  for (i = 0; i < execPath.pathDefinedNumbers; i++)
+    if (strncmp (execPath.paths[i], path, strlen(path)) == 0)
+      return 0;
+  strncpy (execPath.paths[execPath.pathDefinedNumbers], path, 128);
+  execPath.pathDefinedNumbers++;
+  return 0;
+}
+
+

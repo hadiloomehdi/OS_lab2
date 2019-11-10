@@ -29,6 +29,8 @@ int getParent(void);
 int getChildren(int);
 void manualSleep(int);
 //////////////////////////////////////////  
+int setPath(char *);
+
 
 // ulib.c
 int stat(const char*, struct stat*);

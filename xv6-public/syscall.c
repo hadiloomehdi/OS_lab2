@@ -107,7 +107,7 @@ extern int sys_cInt(void);
 extern int sys_manualSleep(void);
 extern int sys_getParent(void);
 extern int sys_getChildren(void);
-
+extern int sys_setPath(void);
 
 
 static int (*syscalls[])(void) = {
@@ -132,10 +132,11 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-[SYS_cInt]  sys_cInt,    
+[SYS_cInt]  sys_cInt,
 [SYS_manualSleep] sys_manualSleep, 
 [SYS_getParent] sys_getParent,
 [SYS_getChildren] sys_getChildren,
+[SYS_setPath] sys_setPath,
 };
 
 void

@@ -20,9 +20,12 @@
 #include "fs.h"
 #include "buf.h"
 #include "file.h"
+#include "execPath.h"
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 static void itrunc(struct inode*);
+
+
 // there should be one superblock per disk device, but we run with
 // only one device
 struct superblock sb; 
@@ -625,7 +628,6 @@ static struct inode*
 namex(char *path, int nameiparent, char *name)
 {
   struct inode *ip, *next;
-
   if(*path == '/')
     ip = iget(ROOTDEV, ROOTINO);
   else
@@ -667,4 +669,17 @@ struct inode*
 nameiparent(char *path, char *name)
 {
   return namex(path, 1, name);
+}
+
+int findExecPath (struct inode** ip, char *execpath) {
+    char name[DIRSIZ];
+    char path[128];
+    for (int i = 0; i < execPath.pathDefinedNumbers; i++) {
+        strncpy (path, execPath.paths[i], strlen(execPath.paths[i]));
+        path[strlen(execPath.paths[i])] = '\0';
+        strncat (path, execpath, strlen(path), strlen(execpath));
+        if ((*ip = namex(path, 0, name)) > 0)
+          return 1;        
+    }
+    return 0;
 }

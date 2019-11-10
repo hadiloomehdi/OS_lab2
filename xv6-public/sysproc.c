@@ -142,3 +142,8 @@ int sys_manualSleep(void)
   cprintf("before sleep %d\n",now);
   return 0;
 }
+
+int sys_setPath (void) {
+  return setExecPath();
+}
+

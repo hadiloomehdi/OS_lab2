@@ -24,3 +24,4 @@
 #define SYS_manualSleep 23
 #define SYS_getParent 24
 #define SYS_getChildren 25
+#define SYS_setPath 26

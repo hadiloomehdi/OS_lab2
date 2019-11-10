@@ -78,6 +78,15 @@ strncpy(char *s, const char *t, int n)
   return os;
 }
 
+
+void strncat (char *desStr, char *srcStr, int firstDstIndex, int copySize) {
+  int i, dstIndex = firstDstIndex;
+  for (i = 0; i < copySize; i++)
+    desStr[i + dstIndex] = srcStr[i];
+  desStr[i + dstIndex] = '\0';
+}
+
+
 // Like strncpy but guaranteed to NUL-terminate.
 char*
 safestrcpy(char *s, const char *t, int n)

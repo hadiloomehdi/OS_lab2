@@ -55,3 +55,4 @@ struct dirent {
   char name[DIRSIZ];
 };
 
+// int findExecPath (struct node* ip, char *execpath);

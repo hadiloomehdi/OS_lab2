@@ -6,6 +6,10 @@
 #include "defs.h"
 #include "x86.h"
 #include "elf.h"
+#include "execPath.h"
+
+
+int findExecPath (struct inode** ip, char *execpath);
 
 int
 exec(char *path, char **argv)
@@ -17,14 +21,16 @@ exec(char *path, char **argv)
   struct inode *ip;
   struct proghdr ph;
   pde_t *pgdir, *oldpgdir;
+  char execpath[128];
   struct proc *curproc = myproc();
-
+  strncpy (execpath, path, strlen(path));
+  execpath[strlen(path)] = '\0';
   begin_op();
-
   if((ip = namei(path)) == 0){
-    end_op();
-    cprintf("exec: fail\n");
-    return -1;
+    if (findExecPath (&ip, execpath) == 0) {
+      end_op();
+      return -1;
+    }
   }
   ilock(ip);
   pgdir = 0;
@@ -34,7 +40,6 @@ exec(char *path, char **argv)
     goto bad;
   if(elf.magic != ELF_MAGIC)
     goto bad;
-
   if((pgdir = setupkvm()) == 0)
     goto bad;
 
@@ -56,12 +61,14 @@ exec(char *path, char **argv)
     if(loaduvm(pgdir, (char*)ph.vaddr, ip, ph.off, ph.filesz) < 0)
       goto bad;
   }
+
   iunlockput(ip);
   end_op();
   ip = 0;
 
   // Allocate two pages at the next page boundary.
   // Make the first inaccessible.  Use the second as the user stack.
+
   sz = PGROUNDUP(sz);
   if((sz = allocuvm(pgdir, sz, sz + 2*PGSIZE)) == 0)
     goto bad;
@@ -77,6 +84,7 @@ exec(char *path, char **argv)
       goto bad;
     ustack[3+argc] = sp;
   }
+
   ustack[3+argc] = 0;
 
   ustack[0] = 0xffffffff;  // fake return PC
@@ -101,8 +109,9 @@ exec(char *path, char **argv)
   curproc->tf->esp = sp;
   switchuvm(curproc);
   freevm(oldpgdir);
-  return 0;
 
+  return 0;
+  
  bad:
   if(pgdir)
     freevm(pgdir);
