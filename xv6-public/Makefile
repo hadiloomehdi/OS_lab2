@@ -185,7 +185,7 @@ UPROGS=\
 	_getParent\
 	_getChildren\
 	_manualSleep\
-	_setPath\
+	_set\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)

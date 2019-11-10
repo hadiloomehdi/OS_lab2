@@ -26,10 +26,10 @@ void setDirectoriesToPath (char *newPaths) {
 }
 
 int main (int argc, char **argv) {
-    if (argc != 2) {
+    if (argc != 3 && strcmp(argv[1], "PATH\0")) {
         printf(1, "wrong command, use below command to add your paths to exec repositories:\nsetPath path1:path2:path3:...\n");
         exit();
     }
-    setDirectoriesToPath (argv[1]);
+    setDirectoriesToPath (argv[2]);
     exit();
 }
